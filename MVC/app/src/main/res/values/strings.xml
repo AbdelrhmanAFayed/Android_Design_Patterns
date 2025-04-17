@@ -3,4 +3,6 @@
     <string name="all">All Products</string>
     <string name="fav">Favourite Products</string>
     <string name="exit">Exit</string>
+    <string name="rat">Rating</string>
+    <string name="addfav">ADD to Favourites</string>
 </resources>
