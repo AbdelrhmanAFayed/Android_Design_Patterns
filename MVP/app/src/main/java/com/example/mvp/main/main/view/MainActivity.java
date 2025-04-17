@@ -1,4 +1,4 @@
-package com.example.mvc;
+package com.example.mvp.main.main.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,17 +7,19 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mvc.allproducts.controller.AllProducts;
-import com.example.mvc.favproducts.controller.FavActivity;
-import com.example.mvc.network.ProductResponse;
+import com.example.mvp.R;
+import com.example.mvp.main.allproduct.view.AllProducts;
+import com.example.mvp.main.favproduct.view.FavActivity;
+import com.example.mvp.main.main.MainContract;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements MainContract.view {
 
     Button btnAll ;
     Button btnFAV ;
     Button btnExit ;
 
-    ProductResponse products ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,25 +33,49 @@ public class MainActivity extends AppCompatActivity {
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AllProducts.class);
-                startActivity(intent);
+                MainActivity.this.OnAllProducts();
+
             }
         });
 
         btnFAV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FavActivity.class);
-                startActivity(intent);
+                MainActivity.this.OnFavProducts();
+
             }
         });
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.finish();
+                MainActivity.this.OnExit();
+
+
             }
         });
 
 
     }
+
+    @Override
+    public void OnAllProducts() {
+        Intent intent = new Intent(MainActivity.this, AllProducts.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void OnFavProducts() {
+        Intent intent = new Intent(MainActivity.this, FavActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void OnExit() {
+
+        MainActivity.this.finish();
+    }
 }
+
+

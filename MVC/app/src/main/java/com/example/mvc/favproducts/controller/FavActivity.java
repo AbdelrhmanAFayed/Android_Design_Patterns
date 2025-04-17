@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvc.R;
@@ -27,10 +29,11 @@ import java.util.List;
 
 public class FavActivity extends AppCompatActivity implements onRemoveClick {
 
-    List<Product> products;
+    LiveData<List<Product>> products;
     ProductDAO productDAO;
     Handler handler ;
     RecyclerView recyclerView ;
+    FavProductAdapter adapter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,27 +44,19 @@ public class FavActivity extends AppCompatActivity implements onRemoveClick {
 
         productDAO = AppDataBase.getInstance(FavActivity.this).getProductDAO();
 
+        products = productDAO.getAllProducts();
 
-        new Thread() {
-
+        products.observe(this, new Observer<List<Product>>() {
             @Override
-            public void run() {
-                products = productDAO.getAllProducts();
-                FavProductAdapter adapter = new FavProductAdapter(FavActivity.this, products, recyclerView);
+            public void onChanged(List<Product> products) {
+                adapter = new FavProductAdapter(FavActivity.this, products, recyclerView,FavActivity.this); // this = onRemoveClick
+                recyclerView.setAdapter(adapter);
             }
-
-        }.start();
-
-        handler = new Handler(Looper.myLooper()){
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                super.handleMessage(msg);
-
-                FavProductAdapter adapter = new FavProductAdapter(FavActivity.this, products, recyclerView);
+        });
 
 
-            }
-        };
+
+
 
     }
 
@@ -76,8 +71,6 @@ public class FavActivity extends AppCompatActivity implements onRemoveClick {
                 productDAO.deleteProduct(product);
                 products = productDAO.getAllProducts();
 
-                Message msg = new Message();
-                handler.sendMessage(msg);
 
             }
 

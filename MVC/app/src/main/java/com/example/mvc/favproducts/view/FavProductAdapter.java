@@ -63,9 +63,9 @@ public class FavProductAdapter extends RecyclerView.Adapter<FavProductAdapter.Vi
     }
 
 
-    public FavProductAdapter(Context context, List<Product> products, RecyclerView recyclerView) {
+    public FavProductAdapter(Context context, List<Product> products, RecyclerView recyclerView, onRemoveClick listener) {
         this.context = context;
-        this.listener = (onRemoveClick) context;
+        this.listener = listener;
         this.products = products;
         this.recAll = recyclerView;
         this.updateGUI();

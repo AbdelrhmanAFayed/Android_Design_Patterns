@@ -1,4 +1,4 @@
-package com.example.mvc.db;
+package com.example.mvp.main.db;
 
 
 import androidx.lifecycle.LiveData;
@@ -8,7 +8,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.mvc.model.Product;
+
+import com.example.mvp.main.model.Product;
 
 import java.util.List;
 
@@ -26,3 +27,4 @@ public interface ProductDAO {
 
 
 }
+
