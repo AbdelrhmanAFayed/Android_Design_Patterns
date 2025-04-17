@@ -1,4 +1,4 @@
-package com.example.mvc.allproducts.view;
+package com.example.mvc.favproducts.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,17 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mvc.R;
+import com.example.mvc.allproducts.view.OnAddClick;
 import com.example.mvc.model.Product;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class FavProductAdapter extends RecyclerView.Adapter<FavProductAdapter.ViewHolder> {
 
     Context context ;
     List<Product> products ;
     RecyclerView recAll ;
-    Button btnADD ;
-    OnAddClick listener;
+
+    onRemoveClick listener;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -37,7 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         TextView textDesc ;
         RatingBar Bar ;
         ImageView imgView ;
-        Button btnADD ;
+        Button btnRemove ;
         ConstraintLayout constraintLayout ;
         View layout ;
 
@@ -50,7 +51,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             textDesc = itemView.findViewById(R.id.textDesc);
             Bar = itemView.findViewById(R.id.ratingBar);
             imgView = itemView.findViewById(R.id.imgView);
-            btnADD = itemView.findViewById(R.id.btnRemove);
+            btnRemove = itemView.findViewById(R.id.btnRemove);
 
             constraintLayout = itemView.findViewById(R.id.layout);
 
@@ -62,9 +63,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-    public ProductAdapter(Context context, List<Product> products,RecyclerView recyclerView) {
+    public FavProductAdapter(Context context, List<Product> products, RecyclerView recyclerView) {
         this.context = context;
-        this.listener = (OnAddClick) context;
+        this.listener = (onRemoveClick) context;
         this.products = products;
         this.recAll = recyclerView;
         this.updateGUI();
@@ -90,7 +91,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.single_product,parent,false);
+        View v = inflater.inflate(R.layout.fav_product,parent,false);
         ViewHolder vh = new ViewHolder(v);
 
         Log.i(TAG,"=========onCreateViewHolder=============");
@@ -110,10 +111,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.textPrice.setText(products.get(position).getPrice().toString());
         holder.Bar.setRating(products.get(position).getRating().floatValue());
 
-        holder.btnADD.setOnClickListener(new View.OnClickListener() {
+        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFavClick(products.get(position));
+                listener.onRemClick(products.get(position));
 
             }
         });

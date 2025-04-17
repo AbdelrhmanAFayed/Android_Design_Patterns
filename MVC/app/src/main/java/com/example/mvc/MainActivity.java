@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mvc.allproducts.controller.AllProducts;
+import com.example.mvc.favproducts.controller.FavActivity;
 import com.example.mvc.network.ProductResponse;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllProducts.class);
+                startActivity(intent);
+            }
+        });
+
+        btnFAV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FavActivity.class);
                 startActivity(intent);
             }
         });

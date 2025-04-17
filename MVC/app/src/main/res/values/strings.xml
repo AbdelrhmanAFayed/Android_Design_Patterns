@@ -5,4 +5,5 @@
     <string name="exit">Exit</string>
     <string name="rat">Rating</string>
     <string name="addfav">ADD to Favourites</string>
+    <string name="remove">Remove From Favourites</string>
 </resources>
