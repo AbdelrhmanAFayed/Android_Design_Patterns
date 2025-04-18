@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface ProductLocalDataSource {
 
-    LiveData<List<Product>> getAllProducts(Context context);
+    LiveData<List<Product>> getAllProducts();
 
-    void insertProduct(Product product, Context context);
+    void insertProduct(Product product);
 
-    void deleteProduct(Product product,Context context);
+    void deleteProduct(Product product);
 
 
 }

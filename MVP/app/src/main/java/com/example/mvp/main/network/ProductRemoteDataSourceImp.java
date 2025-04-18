@@ -11,13 +11,25 @@ public class ProductRemoteDataSourceImp  implements ProductRemoteDataSource{
     private static final String BASE_URL ="https://dummyjson.com/" ;
     private ProductService service ;
     private ProductResponse products = null ;
+    private static ProductRemoteDataSourceImp client = null ;
     Call<ProductResponse> call ;
-    public ProductRemoteDataSourceImp() {
+    private ProductRemoteDataSourceImp() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
             service =retrofit.create(ProductService.class);
+    }
+
+    public static ProductRemoteDataSourceImp getInstance()
+    {
+        if(client == null)
+        {
+            client = new ProductRemoteDataSourceImp();
+        }
+
+
+        return client;
     }
 
 

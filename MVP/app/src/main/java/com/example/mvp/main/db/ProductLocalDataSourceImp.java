@@ -10,32 +10,54 @@ import java.util.List;
 
 public class ProductLocalDataSourceImp implements ProductLocalDataSource {
 
-    @Override
-    public LiveData<List<Product>> getAllProducts(Context context) {
-        return AppDataBase.getInstance(context).getProductDAO().getAllProducts();
+
+
+    private ProductDAO productDAO ;
+    private static ProductLocalDataSourceImp localSource = null ;
+    private LiveData<List<Product>> products ;
+
+    public ProductLocalDataSourceImp(Context context) {
+        productDAO = AppDataBase.getInstance(context).getProductDAO();
+        products = productDAO.getAllProducts();
+    }
+
+    public static ProductLocalDataSourceImp getInstance(Context context) {
+        if (localSource == null)
+        {
+            localSource = new ProductLocalDataSourceImp(context);
+        }
+
+        return localSource ;
     }
 
     @Override
-    public void insertProduct(Product product, Context context) {
+    public LiveData<List<Product>> getAllProducts() {
+        return products;
+    }
+
+    @Override
+    public void insertProduct(Product product) {
         new Thread()
         {
             @Override
             public void run() {
-                AppDataBase.getInstance(context).getProductDAO().insertProduct(product);
+                productDAO.insertProduct(product);
             }
         }.start();
+
     }
 
     @Override
-    public void deleteProduct(Product product, Context context) {
+    public void deleteProduct(Product product) {
 
         new Thread()
         {
             @Override
             public void run() {
-                AppDataBase.getInstance(context).getProductDAO().deleteProduct(product);
+                productDAO.deleteProduct(product);
             }
         }.start();
+
 
 
     }

@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mvc.R;
@@ -31,7 +32,6 @@ public class FavActivity extends AppCompatActivity implements onRemoveClick {
 
     LiveData<List<Product>> products;
     ProductDAO productDAO;
-    Handler handler ;
     RecyclerView recyclerView ;
     FavProductAdapter adapter ;
 
