@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVC</string>
+    <string name="app_name">MVP</string>
     <string name="all">All Products</string>
     <string name="fav">Favourite Products</string>
     <string name="exit">Exit</string>
